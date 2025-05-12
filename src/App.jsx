@@ -4,22 +4,30 @@ import './App.css'
 function App() {
   const [vida, setVida] = useState(100)
   const[vivo, setVivo] = useState(true)
-  
+  const[imagem, setImagem] = useState('/public/bonequinho-vivo.png')
+  const[mensagem, setMensagem] = useState('Está tudo bem!')
+
   useEffect(() => {
     const intervalo = setInterval(() => {
-      if(vida <= 0){
-        setVivo(false)
+      setVida((vidaAtual) => {
+      if(vidaAtual <= 0){
         clearInterval(intervalo)
+        setVivo(false)
         return 0 
       }
-     setVida((vidaAtual) => vidaAtual-1)
+        return vidaAtual - 1 
      
-    }, 500);
+    })
+   }, 500);
     
     
     //console.log(vida);
   return() => clearInterval(intervalo)
-  },[vida])
+  },[])
+
+  useEffect(() => {
+    atualizarImagem()
+  }, [vida])
 
 
   function curar(){
@@ -36,19 +44,42 @@ function App() {
   console.log(vida);
   }
 
+ function atualizarImagem(){
+  if(vida <= 0){
+    setImagem('/public/bonequinho-morto.png')
+    setMensagem('Morreu')
+}else if(vida < 20 ){ 
+  setImagem('/public/bonequinho-doente.png')
+  setMensagem('agora deu o caraio mermo viu')
 
+
+
+}else if(vida > 20){
+  setImagem('public/bonequinho-vivo.png')
+  setMensagem('Ta vivo')
+}
+ }
 
 
   return (
     <>
-       Vida: {vida}
+      
+      <div>
+        
+      <img className='imagem' src={imagem} alt="era para ter uma imagem aqui" />
+      
+      </div>
+      
+      
+      <div>Vida: {vida}</div>
+      
        <button onClick={curar}>Curar</button>
        
        
-      <div>
-     {vivo ?  <p>Vivo</p> : <p>Morto</p>}
-      </div>
-
+    
+    <div>
+      <p>{mensagem}</p>
+    </div>
 
     </>
   )
