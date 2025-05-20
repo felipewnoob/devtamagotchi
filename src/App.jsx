@@ -86,9 +86,9 @@ function App() {
       <div>Fome: {fome}</div>
       <div>Alegria: {alegria}</div>
 
-      <button onClick={curar}>Curar</button>
-      <button onClick={alimentar}>Alimentar</button>
-      <button onClick={divertir}>Brincar</button>
+      <button className='button-cura' onClick={curar}>Curar</button>
+      <button className='button-alimentar'onClick={alimentar}>Alimentar</button>
+      <button className='button-brincar' onClick={divertir}>Brincar</button>
 
       <div>
         <p>{mensagem}</p>
